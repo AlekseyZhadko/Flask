@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
 db = SQLAlchemy(app)
 
 
@@ -13,6 +13,7 @@ db = SQLAlchemy(app)
 # 📌 В таблице "Факультеты" должны быть следующие поля: id и название факультета.
 # 📌 Необходимо создать связь между таблицами "Студенты" и "Факультеты".
 # 📌 Написать функцию-обработчик, которая будет выводить список всех студентов с указанием их факультета.
+
 
 # Задание No3
 # 📌 Доработаем задача про студентов
@@ -29,16 +30,16 @@ class Student(db.Model):
     age = db.Column(db.Integer, nullable=False)
     gender = db.Column(db.String(80), nullable=False)
     group = db.Column(db.Integer, nullable=False)
-    id_faculty = db.Column(db.Integer, db.ForeignKey('faculty.id'))
+    id_faculty = db.Column(db.Integer, db.ForeignKey("faculty.id"))
 
     def __repr__(self):
-        return f'Student: {self.firstname} {self.lastname}'
+        return f"Student: {self.firstname} {self.lastname}"
 
 
 class Faculty(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    students = db.relationship('Student', backref='faculty', lazy=True)
+    students = db.relationship("Student", backref="faculty", lazy=True)
 
     def __repr__(self):
-        return f'Faculty: {self.name}'
+        return f"Faculty: {self.name}"
